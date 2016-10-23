@@ -13,9 +13,12 @@ namespace EmsCalculator.Api
         protected HttpClient _client;
         protected const string _baseUrl = @"http://emspost.ru/api/rest/?";
         protected string _apiMetod;
+        protected string _param;
 
-        public BaseEmsApi(string apiMetod)
+        public BaseEmsApi(string apiMetod, string param = "")
         {
+            _apiMetod = apiMetod;
+            _param = param;
             _client = new HttpClient();
         }
 
@@ -23,7 +26,10 @@ namespace EmsCalculator.Api
         {
             get
             {
-                return _baseUrl + "method=" + _apiMetod;
+                if (string.IsNullOrEmpty(_param) == true)
+                    return _baseUrl + "method=" + _apiMetod;
+                else
+                    return _baseUrl + "method=" + _apiMetod + _param;
             }
         }
 
@@ -38,7 +44,7 @@ namespace EmsCalculator.Api
             return apiResult.Stat == "ok";
         }
 
-        public async Task SendRequest(Action<BaseApiResult, JObject> onComplite, Action<BaseApiResult> onError, Action onLoad)
+        public async Task SendRequest(Action<BaseApiResult, JObject, string> onComplite, Action<BaseApiResult, string> onError, Action onLoad)
         {
             try
             {
@@ -51,17 +57,17 @@ namespace EmsCalculator.Api
                 if(IsOk(apiResult))
                 {
                     apiResult.Msg = "Готово";
-                    onComplite(apiResult, obj);
+                    onComplite(apiResult, obj, Url);
                 }
                 else
                 {
                     apiResult.Msg = obj["rsp"]["err"]["msg"].ToString();
-                    onError(apiResult);
+                    onError(apiResult, Url);
                 }
             }
             catch (Exception ex)
             {
-                onError(new BaseApiResult() { Stat = "Exception", Msg = ex.Message });
+                onError(new BaseApiResult() { Stat = "Exception", Msg = ex.Message }, Url);
             }
         }
 

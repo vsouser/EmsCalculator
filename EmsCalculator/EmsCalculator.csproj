@@ -94,8 +94,19 @@
   <ItemGroup>
     <Compile Include="Api\BaseApiResult.cs" />
     <Compile Include="Api\BaseEmsApi.cs" />
+    <Compile Include="Api\LocationsApi.cs" />
+    <Compile Include="Api\CalculateApi.cs" />
     <Compile Include="Api\IApiResult.cs" />
+    <Compile Include="Api\MaxWeightApi.cs" />
+    <Compile Include="Api\Model\Calculate.cs" />
+    <Compile Include="Api\Model\Location.cs" />
+    <Compile Include="Api\Model\MaxWeight.cs" />
+    <Compile Include="Api\Model\Term.cs" />
+    <Compile Include="Api\RussianCalculateApi.cs" />
+    <Compile Include="Api\RussianLocationsApi.cs" />
     <Compile Include="Api\TestEchoApi.cs" />
+    <Compile Include="Api\WorldCalculateApi.cs" />
+    <Compile Include="Api\WorldLocationsApi.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>

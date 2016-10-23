@@ -1,0 +1,1 @@
+C:\Users\andre_000\Documents\GitHub\EmsCalculator\EmsCalculator\EmsCalculator.csproj;x86

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmsCalculator.Api;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,22 @@ namespace EmsCalculator
         public MainPage()
         {
             this.InitializeComponent();
+        }
+
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            WorldCalculateApi testEchoApi = new WorldCalculateApi("LT", "1.5", "doc");
+
+            await testEchoApi.SendRequest((res, obj, url) => {
+                var location = testEchoApi.GetCalculate(obj);
+            }, 
+            (res, url) => {
+
+            }, () => {
+
+            });
         }
     }
 }
